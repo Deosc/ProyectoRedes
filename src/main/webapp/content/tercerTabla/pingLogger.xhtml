@@ -7,32 +7,26 @@
 >
     <ui:define name="content">
         Ping pooler
-        <p:dataTable id="tablaIpSuccess" value="#{pregunta31.listSuccess}" var="var">
-            <p:column>
-                <h:outputText value="#{var.get('name')}"/>
-            </p:column>
-            <p:column>
-                <h:outputText value="#{var.get('id')}"/>
+        <p:dataTable id="tablaIpSuccess" value="#{pregunta31.listSuccess}" var="var" >
+            <p:column headerText="IP alcanzadas">
+                <h:outputText value="#{var}"/>
             </p:column>
         </p:dataTable>
         <p:dataTable id="tablaIpError" value="#{pregunta31.listError}" var="var">
-            <p:column>
-                <h:outputText value="#{var.get('name')}"/>
-            </p:column>
-            <p:column>
-                <h:outputText value="#{var.get('id')}"/>
+            <p:column headerText="IP con error">
+                <h:outputText value="#{var}"/>
             </p:column>
         </p:dataTable>
 
         <h:form>
             <h:panelGrid columns="2">
                 <p:outputLabel for="correos" value="Correos: "/>
-                <p:chips id="correos" value="#{pregunta31.correos}"     />
+                <p:inputText id="correos" value="#{pregunta31.correos}"      />
             </h:panelGrid>
 
             <h:panelGrid columns="2">
                 <p:outputLabel for="telefonos" value="telefonos: "/>
-                <p:chips id="telefonos" value="#{pregunta31.numeros}"/>
+                <p:inputText id="telefonos" value="#{pregunta31.numeros}"/>
             </h:panelGrid>
 
             <p:commandButton value="Enviar" actionListener="#{pregunta31.onClick()}" process="@form"/>

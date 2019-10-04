@@ -9,12 +9,13 @@ public class CreateUser {
 
     public static void main(String[] args) {
         try {
-            MongoCollecction collection = MongoCollecction.getInstance(DataBaseC.COLLECTION_USER);
+            MongoCollecction collection = MongoCollecction.getInstance(DataBaseC.COLLECTION_PRUEBA);
             System.out.println("BasicDBObject example...");
             BasicDBObject document = new BasicDBObject();
-            document.put(UserC.USER, "");
-            document.put(UserC.PASS, "");
-            document.put(UserC.TYPE, UserC.TYPE_ADMIN);
+
+            document.put("puto", "hola2");
+            document.put("1", "mundo2");
+            document.put("2", "asaojsisio");
             collection.insert(document);
 
         } catch (Exception e) {

@@ -6,6 +6,27 @@
                 xmlns:p="http://primefaces.org/ui"
 >
     <ui:define name="content">
-        Check
+
+        <h:form>
+            <p:inputText  value="#{pregunta34.numero1}" />
+            <p:inputNumber value="#{pregunta34.numero2}"/>
+            <p:inputTextarea value="#{pregunta34.algo}"/>
+            <p:commandButton value="hola" actionListener="#{pregunta34.metodo()}" process="@form" update="@([id$=tabla])"/>
+        </h:form>
+
+
+        <p:dataTable id="tabla" value="#{pregunta34.listt}" var="item">
+            <p:column>
+                <h:outputText value="#{item.get('puto')}"/>
+            </p:column>
+            <p:column>
+                <h:outputText value="#{item.get('1')}"/>
+            </p:column>
+            <p:column>
+                <h:outputText value="#{item.get('2')}"/>
+            </p:column>
+        </p:dataTable>
+
+
     </ui:define>
 </ui:composition>

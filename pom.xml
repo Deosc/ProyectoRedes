@@ -123,6 +123,11 @@
             <version>2.9.8</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.twilio.sdk</groupId>
+            <artifactId>twilio</artifactId>
+            <version>7.41.2</version>
+        </dependency>
     </dependencies>
 
 
