@@ -7,6 +7,16 @@
 >
     <ui:define name="content">
         Ping pooler
+
+
+        <h:form>
+            <p:commandButton value="Enviar"
+                             actionListener="#{pregunta31.metodoPing()}"
+                             process="@form"
+            update="@([id$=tablaIpSuccess])  @([id$=tablaIpError])"/>
+        </h:form>
+
+
         <p:dataTable id="tablaIpSuccess" value="#{pregunta31.listSuccess}" var="var" >
             <p:column headerText="IP alcanzadas">
                 <h:outputText value="#{var}"/>

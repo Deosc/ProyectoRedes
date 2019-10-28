@@ -31,9 +31,12 @@ public class Pregunta31 implements Serializable {
         listSuccess = new ArrayList<String>();
         listError = new ArrayList<String>();
 
+    }
+
+    public void metodoPing(){
         try {
             System.out.println("Entra");
-            String respuesta = WSConsumer.get("http://localhost:5000/10.0.1.2");
+            String respuesta = WSConsumer.get("http://localhost:5000/10.0.1.1");
             JSONObject jsonObject = new JSONObject(respuesta);
             JSONArray jsonArray = jsonObject.getJSONArray("reachable");
             for (int i = 0; i < jsonArray.length(); i++) {
