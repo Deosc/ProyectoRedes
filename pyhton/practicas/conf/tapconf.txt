@@ -1,0 +1,10 @@
+sudo tunctl -t tap0 -u daniel
+sudo ifconfig tap0 up
+sudo ip addr ad 10.0.27.2/24 dev tap0
+sudo route add default gw 10.0.27.1 tap0
+ping 10.0.27.1
+
+sudo route del default gw 10.0.27.1 tap0
+sudo ip addr ad 10.0.27.2/24 dev tap0
+sudo route add default gw 10.0.27.1 tap0
+sudo route del default gw 10.0.27.1 tap0
