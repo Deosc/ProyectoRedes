@@ -2,11 +2,8 @@ import json
 import hug
 import requests
 import netflowImp as netflow
-
-@hug.get("/cve")
-def cve(cve_number):
-    get_cve = requests.get('http://cve.mitre.org/cgi-bin/cvename.cgi?name='+cve_number)
-    return get_cve
+import getConfigImp as configurationBackup
+import diffImp as diff
 
 
 
@@ -17,5 +14,26 @@ def netflowScan():
     x = {
         "code": "200",
         "response":"Exito"
+    }
+    return x
+
+@hug.get("/backup")
+def netflowScan(ipBackup):
+    x = {
+        "code": "200",
+        "path":configurationBackup.main_implementation(ipBackup)
+    }
+    return x
+
+
+@hug.get("/diff")
+def netflowScan(ipSource, ipTarget):
+    stringReturn = ""
+    for line in diff.main_implementation(ipSource, ipTarget):
+        stringReturn = stringReturn +  line.decode('utf-8').strip()
+
+    x = {
+        "code": "200",
+        "path": stringReturn
     }
     return x
