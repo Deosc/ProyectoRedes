@@ -10,6 +10,7 @@ public class DataBaseC {
     public static final String COLLECTION_TRAPS = "traps";
     public static final String COLLECTION_SYSLOGS = "syslogs";
     public static final String COLLECTION_PRUEBA = "prueba";
+    public static final String COLLECTION_NETFLOW = "netflow";
 
 }
 

@@ -1,0 +1,56 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+>
+    <ui:define name="content">
+        Netflow
+
+
+        <h:form>
+            <p:commandButton value="Enviar"
+                             actionListener="#{pregunta51.metodoNetflow()}"
+                             process="@form"
+                             update="@([id$=tablaIpSuccess])  @([id$=tablaIpError])"/>
+        </h:form>
+
+
+        <h:form>
+            <p:dataTable id="tablaIpSuccess"
+                         value="#{pregunta51.objectList}"
+                         var="var"
+                         rows="25"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15,25">
+                <p:column headerText="IP alcanzadas" sortBy="#{var.get('source')}" filterBy="#{var.get('source')}"
+                          filterMatchMode="contains">
+                    <h:outputText value="#{var.get('source')}"/>
+                </p:column>
+                <p:column headerText="IP alcanzadas" sortBy="#{var.get('destiny')}" filterBy="#{var.get('destiny')}"
+                          filterMatchMode="contains">
+                    <h:outputText value="#{var.get('destiny')}"/>
+                </p:column>
+                <p:column headerText="IP alcanzadas" sortBy="#{var.get('duration')}" filterBy="#{var.get('duration')}"
+                          filterMatchMode="contains">
+                    <h:outputText value="#{var.get('duration')}"/>
+                </p:column>
+                <p:column headerText="IP alcanzadas" sortBy="#{var.get('packets')}" filterBy="#{var.get('packets')}"
+                          filterMatchMode="contains">
+                    <h:outputText value="#{var.get('packets')}"/>
+                </p:column>
+                <p:column headerText="IP alcanzadas" sortBy="#{var.get('bytes')}" filterBy="#{var.get('bytes')}"
+                          filterMatchMode="contains">
+                    <h:outputText value="#{var.get('bytes')}"/>
+                </p:column>
+                <p:column headerText="IP alcanzadas" sortBy="#{var.get('flows')}" filterBy="#{var.get('flows')}"
+                          filterMatchMode="contains">
+                    <h:outputText value="#{var.get('flows')}"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+
+    </ui:define>
+</ui:composition>

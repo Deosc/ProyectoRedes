@@ -9,7 +9,7 @@ public class CreateUser {
 
     public static void main(String[] args) {
         try {
-            MongoCollecction collection = MongoCollecction.getInstance(DataBaseC.COLLECTION_PRUEBA);
+            MongoCollecction collection = MongoCollecction.getInstance(DataBaseC.COLLECTION_USER);
             System.out.println("BasicDBObject example...");
             BasicDBObject document = new BasicDBObject();
 
