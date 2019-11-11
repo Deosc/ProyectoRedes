@@ -2,6 +2,7 @@ import json
 import hug
 import requests
 import netflowImp as netflow
+import netflowImp2 as netflowStatics
 import getConfigImp as configurationBackup
 import diffImp as diff
 
@@ -11,11 +12,11 @@ import diffImp as diff
 @hug.get("/netflowScan")
 def netflowScan():
     netflow.main_implementation()
-    x = {
-        "code": "200",
-        "response":"Exito"
-    }
-    return x
+    return   netflow.main_implementation()
+
+@hug.get("/netflowStatics")
+def netflowScan(command):
+    return   netflowStatics.main_implementation(command)
 
 @hug.get("/backup")
 def netflowScan(ipBackup):

@@ -11,8 +11,10 @@ def main_implementation():
     mydb = myclient["proyect"]
     mycol = mydb["netflow"]
     mycolSummary = mydb["netflowSummary"]
+    list = []
     ##Se corre el comando que lee los archivos de nfcap
-    for line in consoleExecute.run_command("nfdump  -R /var/cache/nfdump -o fmt:'|%sap|%dap|%td|%pkt|%byt|%fl'"):
+    comando = "nfdump  -R /var/cache/nfdump -o fmt:'|%sap|%dap|%td|%pkt|%byt|%fl|%ts|%te|%td'"
+    for line in consoleExecute.run_command(comando):
         #Se decodifica la linea leida
         lineDecoded = line.decode('utf-8').strip()
         if(not lineDecoded.startswith("Src")):
@@ -24,11 +26,15 @@ def main_implementation():
                            "packets": data[4].strip(),
                            "bytes": data[5].strip(),
                            "flows": data[6].strip(),
+                           "ts": data[7].strip(),
+                           "te": data[8].strip(),
+                           "d": data[9].strip(),
                            "date":currentDT.strftime("%Y-%m-%d %H:%M:%S")}
-                x = mycol.insert_one(mydict)
+                list.append(mydict)
+    return list
     #Se boran archivos para evitar duplicar datos
-    for delet in consoleExecute.run_command("sudo rm /var/cache/nfdump/nfcapd.*"):
-        print(delet.decode('utf-8').strip())
+    #for delet in consoleExecute.run_command("sudo rm /var/cache/nfdump/nfcapd.*"):
+        #print(delet.decode('utf-8').strip())
 
 
 if __name__ == "__main__":

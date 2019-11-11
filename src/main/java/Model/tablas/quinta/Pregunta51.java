@@ -16,6 +16,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -23,38 +24,38 @@ import java.util.Map;
 @SessionScoped
 public class Pregunta51 implements Serializable {
 
-    private List<Map> objectList;
+    private List<JSONObject> objectList;
 
     private String correos;
     private String numeros;
 
     @PostConstruct
     public void init() {
-        objectList = new ArrayList<Map>();
+        objectList = new ArrayList<JSONObject>();
 
     }
 
     public void metodoNetflow() {
+        objectList = new ArrayList<JSONObject>();
         System.out.println("metodoNetflow");
         try {
-            MongoCollecction collection = MongoCollecction.getInstance(DataBaseC.COLLECTION_NETFLOW);
-            List<DBObject> listMongo = MongoFinder.findAll(collection);
-            for (DBObject dbObject : listMongo) {
-                objectList.add(dbObject.toMap());
+            JSONArray jsonObject = new JSONArray(WSConsumer.get("http://localhost:8000/netflowScan"));
+            for (int x = 0; x < jsonObject.length(); x++) {
+                objectList.add(jsonObject.getJSONObject(x));
             }
         } catch (Exception e) {
-            System.out.println("Error");
+            e.printStackTrace();
         }
         System.out.println("sale metodoNetflow");
 
     }
 
 
-    public List<Map> getObjectList() {
+    public List<JSONObject> getObjectList() {
         return objectList;
     }
 
-    public void setObjectList(List<Map> objectList) {
+    public void setObjectList(List<JSONObject> objectList) {
         this.objectList = objectList;
     }
 
