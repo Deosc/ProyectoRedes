@@ -14,6 +14,7 @@ public class MenuMB implements Serializable {
     public static final String REDIRECT_3_3 = "/tercerTabla/syslog.xhtml";
     public static final String REDIRECT_3_4 = "/tercerTabla/check.xhtml";
     public static final String REDIRECT_5_1 = "/quintaTabla/netflow.xhtml";
+    public static final String REDIRECT_5_2 = "/quintaTabla/netflow2.xhtml";
 
     public String redirectGeneric(String question) {
         System.out.println("Redirect: " + SUBFIX + question);
@@ -38,6 +39,9 @@ public class MenuMB implements Serializable {
 
     public String redirectNetflow() {
         return redirectGeneric(REDIRECT_5_1);
+    }
+    public String redirectNetflowStatics() {
+        return redirectGeneric(REDIRECT_5_2);
     }
 
 }
