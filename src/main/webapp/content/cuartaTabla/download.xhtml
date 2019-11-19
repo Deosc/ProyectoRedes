@@ -1,0 +1,40 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+>
+
+    <script type="text/javascript">
+        function start() {
+            PF('statusDialog').show();
+        }
+
+        function stop() {
+            PF('statusDialog').hide();
+        }
+    </script>
+
+
+    <ui:define name="content">
+
+        <p:dialog modal="true" widgetVar="statusDialog" header="Status" draggable="false" closable="false" resizable="false">
+            <p:graphicImage url="https://storage.googleapis.com/public_files_dgsjl/load.gif" />
+        </p:dialog>
+        <h:form>
+            <p:outputLabel value="Seleccione la ip:"/>
+            <p:selectOneMenu id="selecOneMenuElemen" value="#{pregunta41.ipSelected}" required="true">
+                <f:selectItems value="#{pregunta41.ips}" var="var" itemLabel="#{var}"
+                               itemValue="#{var}"/>
+            </p:selectOneMenu>
+
+            <p:commandButton value="Download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="pi pi-arrow-down">
+                <p:fileDownload value="#{pregunta41.getFile()}" />
+            </p:commandButton>
+        </h:form>
+
+
+
+    </ui:define>
+</ui:composition>

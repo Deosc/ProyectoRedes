@@ -6,11 +6,8 @@
                 xmlns:p="http://primefaces.org/ui"
 >
     <ui:define name="content">
-        Netflow
-
-
         <h:form>
-            <p:commandButton value="Enviar"
+            <p:commandButton value="Buscar"
                              actionListener="#{pregunta51.metodoNetflow()}"
                              process="@form"
                              update="@([id$=tablaIpSuccess])  @([id$=tablaIpError])"/>
@@ -25,27 +22,27 @@
                          paginator="true"
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          rowsPerPageTemplate="5,10,15,25">
-                <p:column headerText="IP alcanzadas" sortBy="#{var.get('source')}" filterBy="#{var.get('source')}"
+                <p:column headerText="Fuente" sortBy="#{var.get('source')}" filterBy="#{var.get('source')}"
                           filterMatchMode="contains">
                     <h:outputText value="#{var.get('source')}"/>
                 </p:column>
-                <p:column headerText="IP alcanzadas" sortBy="#{var.get('destiny')}" filterBy="#{var.get('destiny')}"
+                <p:column headerText="Destino" sortBy="#{var.get('destiny')}" filterBy="#{var.get('destiny')}"
                           filterMatchMode="contains">
                     <h:outputText value="#{var.get('destiny')}"/>
                 </p:column>
-                <p:column headerText="IP alcanzadas" sortBy="#{var.get('duration')}" filterBy="#{var.get('duration')}"
+                <p:column headerText="Duracion" sortBy="#{var.get('duration')}" filterBy="#{var.get('duration')}"
                           filterMatchMode="contains">
                     <h:outputText value="#{var.get('duration')}"/>
                 </p:column>
-                <p:column headerText="IP alcanzadas" sortBy="#{var.get('packets')}" filterBy="#{var.get('packets')}"
+                <p:column headerText="Paquetes" sortBy="#{var.get('packets')}" filterBy="#{var.get('packets')}"
                           filterMatchMode="contains">
                     <h:outputText value="#{var.get('packets')}"/>
                 </p:column>
-                <p:column headerText="IP alcanzadas" sortBy="#{var.get('bytes')}" filterBy="#{var.get('bytes')}"
+                <p:column headerText="Bytes" sortBy="#{var.get('bytes')}" filterBy="#{var.get('bytes')}"
                           filterMatchMode="contains">
                     <h:outputText value="#{var.get('bytes')}"/>
                 </p:column>
-                <p:column headerText="IP alcanzadas" sortBy="#{var.get('flows')}" filterBy="#{var.get('flows')}"
+                <p:column headerText="Flows" sortBy="#{var.get('flows')}" filterBy="#{var.get('flows')}"
                           filterMatchMode="contains">
                     <h:outputText value="#{var.get('flows')}"/>
                 </p:column>

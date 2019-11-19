@@ -17,31 +17,24 @@
 
 
     <ui:define name="content">
-        Netflow
-
-
-
-
-        <p:dialog modal="true" widgetVar="statusDialog" header="Status" draggable="false" closable="false" resizable="false">
-            <p:graphicImage url="https://storage.googleapis.com/public_files_dgsjl/load.gif" />
-        </p:dialog>
-        <h:form>
-            <p:commandButton value="Download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="pi pi-arrow-down">
-                <p:fileDownload value="#{pregunta41.getFile()}" />
-            </p:commandButton>
-        </h:form>
 
 
     
         <h:form>
+            <p:outputLabel value="Buscar por:"/>
+            <p:selectOneMenu id="selecOneMenuElemen" value="#{pregunta52.objectSelectedFilter}" required="true">
+                <f:selectItems value="#{pregunta52.listElementsFilter}" var="var" itemLabel="#{var.getString('label')}"
+                               itemValue="#{var.getString('command')}"/>
+            </p:selectOneMenu>
+            <p:outputLabel value="Ordenar por:"/>
             <p:selectOneMenu id="selecOneMenu" value="#{pregunta52.objectSelected}" required="true">
                 <f:selectItems value="#{pregunta52.listElements}" var="var" itemLabel="#{var.getString('label')}"
                                itemValue="#{var.getString('command')}"/>
             </p:selectOneMenu>
-            <p:commandButton value="Enviar"
+            <p:commandButton value="Buscar"
                              actionListener="#{pregunta52.metodoNetflow()}"
                              process="@form"
-                             update="@([id$=tablaIpSuccess])  @([id$=tablaIpError])"/>
+                             update="@([id$=tablaIpSuccess])  @([id$=tablaIpError])   @([id$=grafica])   @([id$=graficpanel]) "/>
         </h:form>
 
 
@@ -53,32 +46,42 @@
                          paginator="true"
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          rowsPerPageTemplate="5,10,15,25">
-                <p:column headerText="IP alcanzadas" sortBy="#{var.get('source')}" filterBy="#{var.get('source')}"
+                <p:column headerText="Fuente" sortBy="#{var.get('src')}" filterBy="#{var.get('src')}"
                           filterMatchMode="contains">
-                    <h:outputText value="#{var.get('source')}"/>
+                    <h:outputText value="#{var.get('src')}"/>
                 </p:column>
-                <p:column headerText="IP alcanzadas" sortBy="#{var.get('destiny')}" filterBy="#{var.get('destiny')}"
-                          filterMatchMode="contains">
-                    <h:outputText value="#{var.get('destiny')}"/>
-                </p:column>
-                <p:column headerText="IP alcanzadas" sortBy="#{var.get('duration')}" filterBy="#{var.get('duration')}"
-                          filterMatchMode="contains">
-                    <h:outputText value="#{var.get('duration')}"/>
-                </p:column>
-                <p:column headerText="IP alcanzadas" sortBy="#{var.get('packets')}" filterBy="#{var.get('packets')}"
-                          filterMatchMode="contains">
-                    <h:outputText value="#{var.get('packets')}"/>
-                </p:column>
-                <p:column headerText="IP alcanzadas" sortBy="#{var.get('bytes')}" filterBy="#{var.get('bytes')}"
-                          filterMatchMode="contains">
-                    <h:outputText value="#{var.get('bytes')}"/>
-                </p:column>
-                <p:column headerText="IP alcanzadas" sortBy="#{var.get('flows')}" filterBy="#{var.get('flows')}"
+                <p:column headerText="Flows" sortBy="#{var.get('flows')}" filterBy="#{var.get('flows')}"
                           filterMatchMode="contains">
                     <h:outputText value="#{var.get('flows')}"/>
                 </p:column>
+                <p:column headerText="Paquetes" sortBy="#{var.get('paquetes')}" filterBy="#{var.get('paquetes')}"
+                          filterMatchMode="contains">
+                    <h:outputText value="#{var.get('paquetes')}"/>
+                </p:column>
+                <p:column headerText="Bytes" sortBy="#{var.get('bytes')}" filterBy="#{var.get('bytes')}"
+                          filterMatchMode="contains">
+                    <h:outputText value="#{var.get('bytes')}"/>
+                </p:column>
+                <p:column headerText="Paquetes por segundo" sortBy="#{var.get('pps')}" filterBy="#{var.get('pps')}"
+                          filterMatchMode="contains">
+                    <h:outputText value="#{var.get('pps')}"/>
+                </p:column>
+                <p:column headerText="Bits por segundo" sortBy="#{var.get('bps')}" filterBy="#{var.get('bps')}"
+                          filterMatchMode="contains">
+                    <h:outputText value="#{var.get('bps')}"/>
+                </p:column>
+                <p:column headerText="Bytes por paquete" sortBy="#{var.get('bpp')}" filterBy="#{var.get('bpp')}"
+                          filterMatchMode="contains">
+                    <h:outputText value="#{var.get('bpp')}"/>
+                </p:column>
             </p:dataTable>
         </h:form>
+
+
+        <p:outputPanel id="graficpanel">
+            <p:chart rendered="#{pregunta52.objectList.size() > 0 }" id="grafica" type="bar" model="#{pregunta52.barModel}" style="height:300px"/>
+        </p:outputPanel>
+
 
     </ui:define>
 </ui:composition>

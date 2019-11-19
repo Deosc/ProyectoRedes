@@ -35,6 +35,6 @@ def netflowScan(ipSource, ipTarget):
 
     x = {
         "code": "200",
-        "path": stringReturn
+        "diff": stringReturn
     }
     return x
