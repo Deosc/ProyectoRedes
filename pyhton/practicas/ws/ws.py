@@ -5,8 +5,19 @@ import netflowImp as netflow
 import netflowImp2 as netflowStatics
 import getConfigImp as configurationBackup
 import diffImp as diff
+import host_discoverer as hd
 
 
+
+
+@hug.get("/ping")
+def pingPooler(ipRoot):
+    reachable, unreachable = hd.main_implementation(ipRoot)
+    x = {
+        "reachable":reachable,
+        "unreachable":unreachable
+    }
+    return   x
 
 
 @hug.get("/netflowScan")

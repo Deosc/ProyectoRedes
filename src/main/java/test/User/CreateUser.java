@@ -13,9 +13,9 @@ public class CreateUser {
             System.out.println("BasicDBObject example...");
             BasicDBObject document = new BasicDBObject();
 
-            document.put(UserC.USER, "daniel");
-            document.put(UserC.PASS, "mora");
-            document.put(UserC.TYPE, 1);
+            document.put(UserC.USER, "user");
+            document.put(UserC.PASS, "user");
+            document.put(UserC.TYPE, 2);
             collection.insert(document);
 
         } catch (Exception e) {

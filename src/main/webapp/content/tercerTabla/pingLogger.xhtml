@@ -10,36 +10,44 @@
 
 
         <h:form>
-            <p:commandButton value="Enviar"
+            <p:commandButton value="Ejecutar"
                              actionListener="#{pregunta31.metodoPing()}"
                              process="@form"
-            update="@([id$=tablaIpSuccess])  @([id$=tablaIpError])"/>
+                             onclick="start();"
+                             oncomplete="stop();"
+                             update="@([id$=tablaIpSuccess])  @([id$=tablaIpError])"/>
         </h:form>
 
-
-        <p:dataTable id="tablaIpSuccess" value="#{pregunta31.listSuccess}" var="var" >
-            <p:column headerText="IP alcanzadas">
-                <h:outputText value="#{var}"/>
-            </p:column>
-        </p:dataTable>
-        <p:dataTable id="tablaIpError" value="#{pregunta31.listError}" var="var">
-            <p:column headerText="IP con error">
-                <h:outputText value="#{var}"/>
-            </p:column>
-        </p:dataTable>
 
         <h:form>
-            <h:panelGrid columns="2">
-                <p:outputLabel for="correos" value="Correos: "/>
-                <p:inputText id="correos" value="#{pregunta31.correos}"      />
-            </h:panelGrid>
+            <p:dataTable id="tablaIpSuccess" value="#{pregunta31.listSuccess}" var="var">
+                <p:column headerText="IP alcanzadas" filterBy="#{var}" filterMatchMode="contains" sortBy="#{var}">
+                    <h:outputText value="#{var}"/>
+                </p:column>
+                <p:column headerText="Descargar " rendered="#{loginMB.isAdmin()}">
 
-            <h:panelGrid columns="2">
-                <p:outputLabel for="telefonos" value="telefonos: "/>
-                <p:inputText id="telefonos" value="#{pregunta31.numeros}"/>
-            </h:panelGrid>
+                    <p:commandButton value="Descargar" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="pi pi-arrow-down" oncomplete="stop();">
+                        <p:fileDownload value="#{pregunta41.getFileIp(var.toString())}" />
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
 
-            <p:commandButton value="Enviar" actionListener="#{pregunta31.onClick()}" process="@form"/>
+            <p:dataTable id="tablaIpError" value="#{pregunta31.listError}" var="var" filterBy="#{var}"
+                         filterMatchMode="contains" sortBy="#{var}">
+                <p:column headerText="IP con error">
+                    <h:outputText value="#{var}"/>
+                </p:column>
+            </p:dataTable>
         </h:form>
+
+
+        <h:form>
+
+            <p:commandButton value="Enviar notificacion" actionListener="#{messagesMB.setMessages(pregunta31.generateMessage(),pregunta31.generateMessage())}"
+                             oncomplete="PF('messagesDlg').show();"
+                             process="@this"/>
+
+        </h:form>
+
     </ui:define>
 </ui:composition>

@@ -8,6 +8,8 @@
     <ui:define name="content">
         <h:form>
             <p:commandButton value="Buscar"
+                             onclick="start();"
+                             oncomplete="stop();"
                              actionListener="#{pregunta51.metodoNetflow()}"
                              process="@form"
                              update="@([id$=tablaIpSuccess])  @([id$=tablaIpError])"/>

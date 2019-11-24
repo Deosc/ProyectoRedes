@@ -12,6 +12,8 @@
             <p:commandButton value="Buscar"
                              actionListener="#{pregunta32.onClick()}"
                              process="@this @form"
+                             onclick="start();"
+                             oncomplete="stop();"
                              update="@([id$=tablaTraps])"
             />
         </h:form>
@@ -26,5 +28,16 @@
                 <h:outputText value="#{var.get('time')}" converter="dateConverter" />
             </p:column>
         </p:dataTable>
+
+
+
+        <h:form>
+
+            <p:commandButton value="Enviar notificacion" actionListener="#{messagesMB.setMessages('Hay fallos','En su red')}"
+                             oncomplete="PF('messagesDlg').show();"
+                             process="@this"/>
+
+        </h:form>
+
     </ui:define>
 </ui:composition>

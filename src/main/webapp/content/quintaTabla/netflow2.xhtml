@@ -5,15 +5,6 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
 >
-    <script type="text/javascript">
-        function start() {
-            PF('statusDialog').show();
-        }
-
-        function stop() {
-            PF('statusDialog').hide();
-        }
-    </script>
 
 
     <ui:define name="content">
@@ -33,6 +24,9 @@
             </p:selectOneMenu>
             <p:commandButton value="Buscar"
                              actionListener="#{pregunta52.metodoNetflow()}"
+
+                             onclick="start();"
+                             oncomplete="stop();"
                              process="@form"
                              update="@([id$=tablaIpSuccess])  @([id$=tablaIpError])   @([id$=grafica])   @([id$=graficpanel]) "/>
         </h:form>
@@ -78,7 +72,7 @@
         </h:form>
 
 
-        <p:outputPanel id="graficpanel">
+        <p:outputPanel id="graficpanel" rendered="#{loginMB.isAdmin()}">
             <p:chart rendered="#{pregunta52.objectList.size() > 0 }" id="grafica" type="bar" model="#{pregunta52.barModel}" style="height:300px"/>
         </p:outputPanel>
 

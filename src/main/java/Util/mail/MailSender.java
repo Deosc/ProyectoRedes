@@ -7,7 +7,7 @@ import java.util.Properties;
 
 public class MailSender {
 
-    public static void sendMessage(String correo) {
+    public static void sendMessage(String correo, String messageTxt) {
 
         final String username = "escomtfjaprueba@gmail.com";
         final String password = "SJL_2019";
@@ -34,12 +34,11 @@ public class MailSender {
                     InternetAddress.parse(correo+", escomtfjaprueba@gmail.com")
             );
             message.setSubject("Mensaje proyecto redes");
-            message.setText("Administrador de red,"
-                    + "\n\n Su red cuenta con fallos, por favor de checar el estado de esta!");
+            message.setText(messageTxt);
 
             Transport.send(message);
 
-            System.out.println("Done");
+            System.out.println("Done Mail");
 
         } catch (MessagingException e) {
             e.printStackTrace();

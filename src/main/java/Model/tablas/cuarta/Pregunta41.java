@@ -96,6 +96,15 @@ public class Pregunta41 implements Serializable {
         }
     }
 
+
+
+
+    public StreamedContent getFileIp(String ip) {
+        ipSelected = ip;
+        return getFile();
+    }
+
+
     public JSONObject consumeWS() throws Exception{
         System.out.println("http://localhost:8000/backup?ipBackup="+ipSelected);
         return new JSONObject(WSConsumer.get("http://localhost:8000/backup?ipBackup="+ipSelected));

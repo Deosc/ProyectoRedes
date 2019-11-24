@@ -8,7 +8,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <p:menu toggleable="true" >
-    <p:submenu label="Tercer tabla" expanded="false" >
+    <p:submenu label="Tercer tabla" expanded="false" rendered="#{loginMB.isAdmin()}">
         <p:menuitem value="Ping pooler" action="#{menuMB.redirectPingLogger()}" update="messages" icon="pi pi-save" />
         <p:menuitem value="Traps" action="#{menuMB.redirectTraps()}" update="messages" icon="pi pi-save" />
         <p:menuitem value="Syslogs" action="#{menuMB.redirectSyslog()}" update="messages" icon="pi pi-save" />

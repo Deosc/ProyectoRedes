@@ -6,16 +6,16 @@ import com.twilio.type.PhoneNumber;
 
 public class SmsSender {
 
-    public static final String ACCOUNT_SID = "ACa853a94dd3828a9060f96d2c8854b6eb";
-    public static final String AUTH_TOKEN = "deebb66b97ccb88f50aede0e579b1c30";
+    public static final String ACCOUNT_SID = "ACfa32780abf9ecfaa1984edb59224eb6f";
+    public static final String AUTH_TOKEN = "fbbbfa6f9317eb33bf587ef57a160c54";
 
-    public static String sendMessage(String number) throws Exception {
+    public static String sendMessage(String number, String messageTxt) throws Exception {
 
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
         //Numero preferente: +525583178620
         Message message = Message.creator(new PhoneNumber(number),
-                new PhoneNumber("+12563803894"),
-                "La red cuenta con elementos apagados.").create();
+                new PhoneNumber("+12054305651"),
+                messageTxt).create();
 
         return message.getSid();
 

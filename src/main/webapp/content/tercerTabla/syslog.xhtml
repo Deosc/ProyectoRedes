@@ -7,7 +7,7 @@
 >
     <ui:define name="content">
         <div class="ui-g-12 ui-md-12 ui-lg-12">
-            <h:form id="ip">
+            <h:form id="ipform">
                 <!--Seleccione una dirección IP -->
                 <p:spacer height="25"/>
                 <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
@@ -26,6 +26,8 @@
                                  actionListener="#{pregunta33.obtenerSyslogs()}"
                                  process="@this"
                                  update="@([id$=formLogs])"
+                                 onclick="start();"
+                                 oncomplete="stop();"
                 />
             </h:form>
         </div>
@@ -48,6 +50,15 @@
                 </p:dataTable>
             </h:form>
         </div>
+
+
+        <h:form>
+
+            <p:commandButton value="Enviar notificacion" actionListener="#{messagesMB.setMessages('Hay fallos','En su red')}"
+                             oncomplete="PF('messagesDlg').show();"
+                             process="@this"/>
+
+        </h:form>
 
     </ui:define>
 </ui:composition>

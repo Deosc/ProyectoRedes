@@ -12,11 +12,11 @@
 <h:body> <p:growl id="messages" showDetail="true" sticky="true"/>
 
     <p:layout fullPage="true">
-        <p:layoutUnit position="north" size="100"  resizable="false" closable="false" collapsible="false">
+        <p:layoutUnit position="north" size="100" resizable="false" closable="false" collapsible="false">
             <h:outputText value="Escom Ipn"/>
         </p:layoutUnit>
 
-        <p:layoutUnit position="south"   size="100"  resizable="false" closable="false" collapsible="false">
+        <p:layoutUnit position="south" size="100" resizable="false" closable="false" collapsible="false">
             <h:outputText value="Proyecto Redes"/>
         </p:layoutUnit>
 
@@ -30,5 +30,40 @@
             <ui:insert name="content">Put default content here, if any.</ui:insert>
         </p:layoutUnit>
     </p:layout>
+
+    <script type="text/javascript">
+        function start() {
+            PF('statusDialog').show();
+        }
+
+        function stop() {
+            PF('statusDialog').hide();
+        }
+    </script>
+
+    <p:dialog modal="true" widgetVar="statusDialog" draggable="false" closable="true" resizable="false">
+        <p:graphicImage url="https://storage.googleapis.com/public_files_dgsjl/load.gif"/>
+    </p:dialog>
+
+    <p:dialog modal="true" widgetVar="messagesDlg" draggable="false" closable="true" resizable="false">
+        <h:form>
+            <h:panelGrid columns="2">
+                <p:outputLabel for="correos" value="Correos: "/>
+                <p:inputText id="correos" value="#{messagesMB.correos}"/>
+            </h:panelGrid>
+
+            <h:panelGrid columns="2">
+                <p:outputLabel for="telefonos" value="telefonos: "/>
+                <p:inputText id="telefonos" value="#{messagesMB.numeros}"/>
+            </h:panelGrid>
+
+            <p:commandButton value="Enviar"
+                             actionListener="#{messagesMB.onClick()}"
+                             process="@form"
+                             oncomplete="PF('messagesDlg').hide();"/>
+        </h:form>
+    </p:dialog>
+
+
 </h:body>
 </html>

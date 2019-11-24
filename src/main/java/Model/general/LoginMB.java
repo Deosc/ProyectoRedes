@@ -23,6 +23,7 @@ public class LoginMB implements Serializable {
 
     private String user;
     private String password;
+    private Integer tipo;
     private DBObject userData;
 
     @PostConstruct
@@ -47,6 +48,7 @@ public class LoginMB implements Serializable {
             //Results
             while (cursor.hasNext()) {
                 userData = cursor.next();
+                tipo = (Integer)userData.get(UserC.TYPE);
                 redirect = ON_LOGIN_OK;
             }
 
@@ -75,5 +77,20 @@ public class LoginMB implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Integer getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Integer tipo) {
+        this.tipo = tipo;
+    }
+
+    public Boolean isAdmin(){
+        return tipo.equals(1);
+    }
+    public Boolean isUser(){
+        return tipo.equals(2);
     }
 }

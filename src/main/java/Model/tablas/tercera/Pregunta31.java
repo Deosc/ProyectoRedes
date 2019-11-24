@@ -34,20 +34,20 @@ public class Pregunta31 implements Serializable {
     }
 
     public void metodoPing(){
+        listError = new ArrayList<String>();
+        listSuccess = new ArrayList<String>();
         try {
             System.out.println("Entra");
-            String respuesta = WSConsumer.get("http://localhost:5000/10.0.1.1");
+            String respuesta = WSConsumer.get("http://localhost:8000/ping?ipRoot=10.0.2.1");
             JSONObject jsonObject = new JSONObject(respuesta);
             JSONArray jsonArray = jsonObject.getJSONArray("reachable");
             for (int i = 0; i < jsonArray.length(); i++) {
-                System.out.println();
                 listSuccess.add(jsonArray.getString(i));
             }
 
             JSONArray jsonArray2 = jsonObject.getJSONArray("unreachable");
             for (int i = 0; i < jsonArray2.length(); i++) {
-                System.out.println();
-                listSuccess.add(jsonArray2.getString(i));
+                listError.add(jsonArray2.getString(i));
             }
             //System.out.println(jsonArray);
         } catch (Exception e) {
@@ -55,20 +55,21 @@ public class Pregunta31 implements Serializable {
         }
     }
 
-    public void onClick() {
-        System.out.println("Accion ping logger");
-        System.out.println(correos);
-        System.out.println(numeros);
-        try {
-            if (!listError.isEmpty()) {
-                MailSender.sendMessage(correos);
-                SmsSender.sendMessage(numeros);
-                WhatsAppSenser.sendMessage(numeros);
+
+    public String generateMessage(){
+        StringBuilder stringBuilder = new StringBuilder();
+        if(listError.isEmpty()){
+            stringBuilder.append("La red esta encendida, sin errores.");
+        }else {
+            stringBuilder.append("Existen redes apagadas: ");
+            for (String ip : listError){
+                stringBuilder.append(" "+ ip);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
+
+        return stringBuilder.toString();
     }
+
 
     public List<String> getListSuccess() {
         return listSuccess;
