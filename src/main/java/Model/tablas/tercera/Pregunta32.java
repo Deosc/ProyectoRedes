@@ -1,6 +1,7 @@
 package Model.tablas.tercera;
 
 import Constants.DataBaseC;
+import Model.general.MenuMB;
 import Util.mongo.MongoCollecction;
 import Util.mongo.MongoFinder;
 import com.mongodb.DBObject;
@@ -38,6 +39,13 @@ public class Pregunta32 implements Serializable {
             System.out.println("Error");
         }
     }
+
+    public String redirect() {
+        onClick();
+        MenuMB menuMB = new MenuMB();
+        return menuMB.redirectTraps();
+    }
+
 
     public void onClick() {
         System.out.println("METODO");

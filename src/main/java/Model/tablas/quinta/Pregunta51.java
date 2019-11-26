@@ -1,6 +1,7 @@
 package Model.tablas.quinta;
 
 import Constants.DataBaseC;
+import Model.general.MenuMB;
 import Util.mail.MailSender;
 import Util.mongo.MongoCollecction;
 import Util.mongo.MongoFinder;
@@ -48,6 +49,12 @@ public class Pregunta51 implements Serializable {
         }
         System.out.println("sale metodoNetflow");
 
+    }
+
+    public String redirect(){
+        metodoNetflow();
+        MenuMB menuMB = new MenuMB();
+        return menuMB.redirectTraps();
     }
 
 

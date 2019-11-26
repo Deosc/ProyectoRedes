@@ -1,5 +1,6 @@
 package Model.tablas.tercera;
 
+import Model.general.MenuMB;
 import Util.mail.MailSender;
 import Util.sms.SmsSender;
 import Util.webservice.WSConsumer;
@@ -33,7 +34,7 @@ public class Pregunta31 implements Serializable {
 
     }
 
-    public void metodoPing(){
+    public String metodoPing(){
         listError = new ArrayList<String>();
         listSuccess = new ArrayList<String>();
         try {
@@ -53,8 +54,14 @@ public class Pregunta31 implements Serializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        MenuMB menuMB = new MenuMB();
+        return menuMB.redirectPingLogger();
     }
 
+    public void refesh(){
+        metodoPing();
+    }
 
     public String generateMessage(){
         StringBuilder stringBuilder = new StringBuilder();

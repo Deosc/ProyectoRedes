@@ -1,26 +1,12 @@
 <ui:composition template="/WEB-INF/templates/layout.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
 >
     <ui:define name="content">
-        Ping pooler
-
-
         <h:form>
-            <p:commandButton value="Ejecutar"
-                             actionListener="#{pregunta31.metodoPing()}"
-                             process="@form"
-                             onclick="start();"
-                             oncomplete="stop();"
-                             update="@([id$=tablaIpSuccess])  @([id$=tablaIpError])"/>
-        </h:form>
-
-
-        <h:form>
-            <p:dataTable id="tablaIpSuccess" value="#{pregunta31.listSuccess}" var="var">
+            <p:dataTable id="tablaIpSuccess" value="#{pregunta31.listSuccess}" var="var" emptyMessage="No hay IP encontradas">
                 <p:column headerText="IP alcanzadas" filterBy="#{var}" filterMatchMode="contains" sortBy="#{var}">
                     <h:outputText value="#{var}"/>
                 </p:column>
@@ -32,7 +18,7 @@
                 </p:column>
             </p:dataTable>
 
-            <p:dataTable id="tablaIpError" value="#{pregunta31.listError}" var="var" filterBy="#{var}"
+            <p:dataTable id="tablaIpError" value="#{pregunta31.listError}" var="var" filterBy="#{var}" emptyMessage="No existen IP sin encontrar"
                          filterMatchMode="contains" sortBy="#{var}">
                 <p:column headerText="IP con error">
                     <h:outputText value="#{var}"/>
@@ -48,6 +34,17 @@
                              process="@this"/>
 
         </h:form>
+
+
+        <h:form>
+            <p:commandButton value="Actualizar"
+                             actionListener="#{pregunta31.refesh()}"
+                             process="@form"
+                             onclick="start();"
+                             oncomplete="stop();"
+                             update="@([id$=tablaIpSuccess])  @([id$=tablaIpError])"/>
+        </h:form>
+
 
     </ui:define>
 </ui:composition>
