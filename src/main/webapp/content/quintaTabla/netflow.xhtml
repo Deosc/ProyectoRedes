@@ -6,15 +6,6 @@
                 xmlns:p="http://primefaces.org/ui"
 >
     <ui:define name="content">
-        <h:form>
-            <p:commandButton value="Buscar"
-                             onclick="start();"
-                             oncomplete="stop();"
-                             actionListener="#{pregunta51.metodoNetflow()}"
-                             process="@form"
-                             update="@([id$=tablaIpSuccess])  @([id$=tablaIpError])"/>
-        </h:form>
-
 
         <h:form>
             <p:dataTable id="tablaIpSuccess"
@@ -50,6 +41,15 @@
                 </p:column>
             </p:dataTable>
         </h:form>
+        <h:form>
+            <p:commandButton value="Actualizar"
+                             onclick="start();"
+                             oncomplete="stop();"
+                             actionListener="#{pregunta51.metodoNetflow()}"
+                             process="@form"
+                             update="@([id$=tablaIpSuccess])  @([id$=tablaIpError])"/>
+        </h:form>
+
 
     </ui:define>
 </ui:composition>
