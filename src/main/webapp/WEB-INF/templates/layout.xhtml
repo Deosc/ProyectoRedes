@@ -117,5 +117,19 @@
     </p:dialog>
 
 
+
+    <h:form>
+        <p:commandButton value="Subir configuracion" onclick="PF('dlg1').show();" actionListener="#{backupMB.setIpSelected('10.0.1.1')}"/>
+    </h:form>
+    <p:dialog header="Subir configuracion" widgetVar="dlg1">
+        <h:form enctype="multipart/form-data">
+            <h:form enctype="multipart/form-data">
+                <p:fileUpload mode="simple" value="#{backupMB.uploadedFile}"  />
+                <p:commandButton value="Upload" action="#{backupMB.upload}" ajax="false" />
+            </h:form>
+
+        </h:form>
+    </p:dialog>
+
 </h:body>
 </html>

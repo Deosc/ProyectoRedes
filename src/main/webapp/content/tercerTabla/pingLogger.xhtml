@@ -6,19 +6,23 @@
 >
     <ui:define name="content">
         <h:form>
-            <p:dataTable id="tablaIpSuccess" value="#{pregunta31.listSuccess}" var="var" emptyMessage="No hay IP encontradas">
+            <p:dataTable id="tablaIpSuccess" value="#{pregunta31.listSuccess}" var="var"
+                         emptyMessage="No hay IP encontradas">
                 <p:column headerText="IP alcanzadas" filterBy="#{var}" filterMatchMode="contains" sortBy="#{var}">
                     <h:outputText value="#{var}"/>
                 </p:column>
                 <p:column headerText="Descargar " rendered="#{loginMB.isAdmin()}">
 
-                    <p:commandButton value="Descargar" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="pi pi-arrow-down" oncomplete="stop();">
-                        <p:fileDownload value="#{pregunta41.getFileIp(var.toString())}" />
+                    <p:commandButton value="Descargar" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);"
+                                     icon="pi pi-arrow-down" oncomplete="stop();">
+                        <p:fileDownload value="#{pregunta41.getFileIp(var.toString())}"/>
                     </p:commandButton>
+                    <p:commandButton value="Subir configuracion" onclick="PF('dlg1').show();" actionListener=""/>
                 </p:column>
             </p:dataTable>
 
-            <p:dataTable id="tablaIpError" value="#{pregunta31.listError}" var="var" filterBy="#{var}" emptyMessage="No existen IP sin encontrar"
+            <p:dataTable id="tablaIpError" value="#{pregunta31.listError}" var="var" filterBy="#{var}"
+                         emptyMessage="No existen IP sin encontrar"
                          filterMatchMode="contains" sortBy="#{var}">
                 <p:column headerText="IP con error">
                     <h:outputText value="#{var}"/>
@@ -27,16 +31,13 @@
         </h:form>
 
 
-        <h:form>
 
-            <p:commandButton value="Enviar notificacion" actionListener="#{messagesMB.setMessages(pregunta31.generateMessage(),pregunta31.generateMessage())}"
+
+        <h:form>
+            <p:commandButton value="Enviar notificacion"
+                             actionListener="#{messagesMB.setMessages(pregunta31.generateMessage(),pregunta31.generateMessage())}"
                              oncomplete="PF('messagesDlg').show();"
                              process="@this"/>
-
-        </h:form>
-
-
-        <h:form>
             <p:commandButton value="Actualizar"
                              actionListener="#{pregunta31.refesh()}"
                              process="@form"
