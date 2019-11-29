@@ -18,8 +18,18 @@
                         <p:fileDownload value="#{pregunta41.getFileIp(var.toString())}"/>
                     </p:commandButton>
                     <p:commandButton value="Subir configuracion" onclick="PF('dlg1').show();" actionListener="#{backupMB.setIpSelected(var)}"/>
+
+                    <p:commandButton id="imageBtn"
+                                     value="Ver cambios"
+                                     actionListener="#{pregunta31.metodoList(var)}"
+                                     oncomplete="PF('paneliasi').show();"
+                    update="@([id$=imagePanel]) "/>
+
                 </p:column>
             </p:dataTable>
+            <br/>
+            <br/>
+            <br/>
 
             <p:dataTable id="tablaIpError" value="#{pregunta31.listError}" var="var" filterBy="#{var}"
                          emptyMessage="No existen IP sin encontrar"
@@ -30,6 +40,21 @@
             </p:dataTable>
         </h:form>
 
+
+
+
+        <p:dialog id="imagePanel" widgetVar="paneliasi" hideEffect="fade" header="Cambios"   >
+            <p:dataTable id="tablaCambios" value="#{pregunta31.listMessages}" var="msg"
+
+                         rows="25"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15,25">
+                <p:column headerText="Comando">
+                    <h:outputText value="#{msg}"/>
+                </p:column>
+            </p:dataTable>
+        </p:dialog>
 
 
 

@@ -31,9 +31,13 @@ def telnet(host):
 	tn.write(ip.encode('utf-8'))
 	tn.read_until(b"Destination filename")
 	tn.write(b"running-config\n")
+	sleep(20)
+	tn.write(b"wr\n")
+	sleep(2)
+	tn.write(b"y\n")
+	sleep(2)
 	tn.write(b"exit\n")
 
-	sleep(20)
 
 
 	#Escribimos y cerramos el archivo

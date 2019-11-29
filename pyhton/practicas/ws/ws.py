@@ -7,8 +7,14 @@ import getConfigImp as configurationBackup
 import diffImp as diff
 import host_discoverer as hd
 import uploadConfig as uploadConfig
+import changes as changesImp
 
 
+
+@hug.get("/changes")
+def changes(ipChanges):
+    a = changesImp.main_implementation(ipChanges)
+    return a
 
 @hug.get("/restoreConfig")
 def restoreConfig(ipRestore):

@@ -23,6 +23,7 @@ import java.util.Map;
 public class Pregunta31 implements Serializable {
     private List<String> listSuccess;
     private List<String> listError;
+    private List<String> listMessages;
 
     private String correos;
     private String numeros;
@@ -57,6 +58,22 @@ public class Pregunta31 implements Serializable {
 
         MenuMB menuMB = new MenuMB();
         return menuMB.redirectPingLogger();
+    }
+
+    public void metodoList(String ip){
+        listMessages = new ArrayList<>();
+        try {
+            System.out.println("Entra");
+            String respuesta = WSConsumer.  get("http://localhost:8000/changes?ipChanges="+ip);
+            JSONObject jsonObject = new JSONObject(respuesta);
+            JSONArray jsonArray = jsonObject.getJSONArray("message");
+            for (int i = 0; i < jsonArray.length(); i++) {
+                listMessages.add(jsonArray.getString(i));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     public void refesh(){
@@ -108,5 +125,13 @@ public class Pregunta31 implements Serializable {
 
     public void setCorreos(String correos) {
         this.correos = correos;
+    }
+
+    public List<String> getListMessages() {
+        return listMessages;
+    }
+
+    public void setListMessages(List<String> listMessages) {
+        this.listMessages = listMessages;
     }
 }
