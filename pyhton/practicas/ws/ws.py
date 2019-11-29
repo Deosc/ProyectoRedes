@@ -6,9 +6,14 @@ import netflowImp2 as netflowStatics
 import getConfigImp as configurationBackup
 import diffImp as diff
 import host_discoverer as hd
+import uploadConfig as uploadConfig
 
 
 
+@hug.get("/restoreConfig")
+def restoreConfig(ipRestore):
+    uploadConfig.main_implementation(ipRestore)
+    return "ok"
 
 @hug.get("/ping")
 def pingPooler(ipRoot):

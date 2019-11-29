@@ -17,7 +17,7 @@
                                      icon="pi pi-arrow-down" oncomplete="stop();">
                         <p:fileDownload value="#{pregunta41.getFileIp(var.toString())}"/>
                     </p:commandButton>
-                    <p:commandButton value="Subir configuracion" onclick="PF('dlg1').show();" actionListener=""/>
+                    <p:commandButton value="Subir configuracion" onclick="PF('dlg1').show();" actionListener="#{backupMB.setIpSelected(var)}"/>
                 </p:column>
             </p:dataTable>
 

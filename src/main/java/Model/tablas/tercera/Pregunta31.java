@@ -39,7 +39,7 @@ public class Pregunta31 implements Serializable {
         listSuccess = new ArrayList<String>();
         try {
             System.out.println("Entra");
-            String respuesta = WSConsumer.get("http://localhost:8000/ping?ipRoot=10.0.2.1");
+            String respuesta = WSConsumer.get("http://localhost:8000/ping?ipRoot=10.0.1.1");
             JSONObject jsonObject = new JSONObject(respuesta);
             JSONArray jsonArray = jsonObject.getJSONArray("reachable");
             for (int i = 0; i < jsonArray.length(); i++) {
