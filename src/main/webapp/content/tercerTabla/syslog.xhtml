@@ -58,18 +58,14 @@
                     <p:column headerText="Nivel de Log">
                         <h:outputText value="Nivel de syslog #{var.get('nivel')}"/>
                     </p:column>
+                    <p:column headerText="Notificar">
+                        <p:commandButton value="Notificar" actionListener="#{messagesMB.setMessages('Se detecto un Syslog nivel 5, para más información revise el sistema.','Se detecto un Syslog nivel 5, para más información revise el sistema.')}"
+                                         oncomplete="PF('messagesDlg').show();"
+                                         process="@this" disabled="#{var.get('nivel') != '5'}"/>
+                    </p:column>
                 </p:dataTable>
             </h:form>
         </div>
-
-
-        <h:form>
-
-            <p:commandButton value="Enviar notificacion" actionListener="#{messagesMB.setMessages('Hay fallos','En su red')}"
-                             oncomplete="PF('messagesDlg').show();"
-                             process="@this"/>
-
-        </h:form>
 
     </ui:define>
 </ui:composition>
