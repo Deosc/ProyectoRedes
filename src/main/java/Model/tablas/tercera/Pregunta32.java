@@ -64,6 +64,10 @@ public class Pregunta32 implements Serializable {
         return objectList;
     }
 
+    public String getSize(){
+        return "Existen " + String.valueOf(objectList.size()) + " traps en el sistema, reviselos.";
+    }
+
     public void setObjectList(List<Map> objectList) {
         this.objectList = objectList;
     }

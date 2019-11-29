@@ -13,7 +13,7 @@
                     onclick="start();"
                     oncomplete="stop();"
                     update="messages" icon="pi pi-save" />
-        <p:menuitem value="Traps" action="#{pregunta32.redirect()}"
+        <p:menuitem value="Traps" action="#{menuMB.redirectTraps()}"
                     onclick="start();"
                     oncomplete="stop();" update="messages" icon="pi pi-save" />
         <p:menuitem value="Syslogs" action="#{menuMB.redirectSyslog()}"
@@ -26,7 +26,7 @@
         <p:menuitem value="Templates" action="#{menuMB.redirectTemplates()}" update="messages" icon="pi pi-save" />
     </p:submenu>
     <p:submenu label="Quinta tabla">
-        <p:menuitem value="Netflow" action="#{pregunta51.redirect()}"
+        <p:menuitem value="Netflow" action="#{menuMB.redirectNetflow()}"
                     onclick="start();"
                     oncomplete="stop();" update="messages" icon="pi pi-save" />
         <p:menuitem value="Netflow statics " action="#{menuMB.redirectNetflowStatics()}"

@@ -12,10 +12,6 @@ import changes as changesImp
 import telnetlib
 from os import remove
 
-myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-mydb = myclient["proyect"]
-mycol = mydb["routers"]
-templates = mydb["templates"]
 
 
 
@@ -71,8 +67,15 @@ def netflowScan(ipSource, ipTarget):
 
 @hug.get(examples='archivo_conf=10.0.27.1.txt')
 @hug.local()
+def template(archivo_conf):
 
-def template(archivo_conf: hug.types.text):
+
+	myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+	mydb = myclient["proyect"]
+	mycol = mydb["routers"]
+	templates = mydb["templates"]
+
+
 
 	ENCONTRADO = 0
 
@@ -81,7 +84,7 @@ def template(archivo_conf: hug.types.text):
 	ip_routes = []
 
 	#Se crea la plantilla del router
-	f = open(archivo_conf, "r")
+	f = open(""+archivo_conf, "r")
 	for linea in f:
 
 		if linea.find("hostname") == ENCONTRADO:
@@ -116,20 +119,28 @@ def template(archivo_conf: hug.types.text):
 @hug.get("/insert")
 @hug.local()
 def insertTemplate():
+
+	myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+	mydb = myclient["proyect"]
+	mycol = mydb["routers"]
+	templates = mydb["templates"]
+
 	template = mycol.find_one()
-	template_found = templates.find_one({},{ "router": template["router"]})
-	if template_found is None:
-		templates.insert_one(template)
-	else:
-		myquery = { "router": template["router"]}
-		newvalues = { "$set":  template }
-		templates.update_one(myquery, newvalues)
+
+	templates.insert_one(template)
+
 
 	mycol.delete_many({})
 
 @hug.get("/comparate")
 @hug.local()
 def comparate(routerIn: hug.types.text):
+
+	myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+	mydb = myclient["proyect"]
+	mycol = mydb["routers"]
+	templates = mydb["templates"]
+
 	router = mycol.find_one({},{"_id":0})
 	template_found = templates.find_one({ "router": routerIn},{"_id":0})
 	mycol.delete_many({})

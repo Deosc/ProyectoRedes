@@ -2,6 +2,7 @@ package Model.tablas.cuarta;
 
 import Constants.DataBaseC;
 import Util.mongo.MongoCollecction;
+import Util.webservice.WSConsumer;
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCursor;
@@ -14,15 +15,12 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.Serializable;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.nio.file.Files;
+import java.nio.file.attribute.PosixFilePermission;
+import java.util.*;
 
 /**
  * @author Carlos Eduardo Caballero Huesca
@@ -101,12 +99,52 @@ public class Pregunta44 implements Serializable {
      * que genera el template en la BD.
      */
     public void upload() {
+
+
+
+
+
+
         if (file != null) {
+
+            try {
+                InputStream inputStream;
+                inputStream = file.getInputstream();
+                byte[] buffer = new byte[inputStream.available()];
+                inputStream.read(buffer);
+                File fileTo = new File("/tftpboot/"+file.getFileName());
+                OutputStream outStream = new FileOutputStream(fileTo);
+                outStream.write(buffer);
+
+
+                Set<PosixFilePermission> perms = new HashSet<>();
+                perms.add(PosixFilePermission.OWNER_READ);
+                perms.add(PosixFilePermission.OWNER_WRITE);
+                perms.add(PosixFilePermission.OWNER_EXECUTE);
+                perms.add(PosixFilePermission.GROUP_READ);
+                perms.add(PosixFilePermission.GROUP_WRITE);
+                perms.add(PosixFilePermission.GROUP_EXECUTE);
+                perms.add(PosixFilePermission.OTHERS_READ);
+                perms.add(PosixFilePermission.OTHERS_WRITE);
+                perms.add(PosixFilePermission.OTHERS_EXECUTE);
+
+                Files.setPosixFilePermissions(fileTo.toPath(), perms);
+
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+
+
             FacesMessage message = new FacesMessage("Aviso", file.getFileName() + " el template se generó correctamente.");
             FacesContext.getCurrentInstance().addMessage(null, message);
-            consumingRest("http://localhost:8000/template?archivo_conf="+file.getFileName(),Boolean.FALSE);
+            consumingRest("http://localhost:8000/template?archivo_conf="+"/tftpboot/"+file.getFileName(),Boolean.FALSE);
 
         }
+
+
+
         generateTemplate();
     }
 
@@ -187,7 +225,38 @@ public class Pregunta44 implements Serializable {
     public void uploadComparate() {
         if (file != null) {
 
-            consumingRest("http://localhost:8000/template?archivo_conf="+file.getFileName(), Boolean.FALSE);
+            try {
+                InputStream inputStream;
+                inputStream = file.getInputstream();
+                byte[] buffer = new byte[inputStream.available()];
+                inputStream.read(buffer);
+                File fileTo = new File("/tftpboot/"+file.getFileName());
+                OutputStream outStream = new FileOutputStream(fileTo);
+                outStream.write(buffer);
+
+
+                Set<PosixFilePermission> perms = new HashSet<>();
+                perms.add(PosixFilePermission.OWNER_READ);
+                perms.add(PosixFilePermission.OWNER_WRITE);
+                perms.add(PosixFilePermission.OWNER_EXECUTE);
+                perms.add(PosixFilePermission.GROUP_READ);
+                perms.add(PosixFilePermission.GROUP_WRITE);
+                perms.add(PosixFilePermission.GROUP_EXECUTE);
+                perms.add(PosixFilePermission.OTHERS_READ);
+                perms.add(PosixFilePermission.OTHERS_WRITE);
+                perms.add(PosixFilePermission.OTHERS_EXECUTE);
+
+                Files.setPosixFilePermissions(fileTo.toPath(), perms);
+
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+
+
+
+            consumingRest("http://localhost:8000/template?archivo_conf=" +"/tftpboot/"+file.getFileName(), Boolean.FALSE);
             compare();
 
         }

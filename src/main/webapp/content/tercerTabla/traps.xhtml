@@ -7,14 +7,23 @@
 >
     <ui:define name="content">
 
-        <p:dataTable id="tablaTraps" value="#{pregunta32.objectList}" var="var" emptyMessage="No existen traps" >
-            <p:column>
+        <p:dataTable id="tablaTraps" value="#{pregunta32.objectList}" var="var" emptyMessage="No existen traps"
+
+                     rows="25"
+                     paginator="true"
+                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                     rowsPerPageTemplate="5,10,15,25"
+        >
+            <p:column headerText="OID" sortBy="#{var.get('oid')}" filterBy="#{var.get('oid')}"
+                      filterMatchMode="contains" >
                 <h:outputText value="#{var.get('oid')}" />
             </p:column>
-            <p:column>
+            <p:column headerText="Descripcion" sortBy="#{var.get('string')}" filterBy="#{var.get('string')}"
+                      filterMatchMode="contains">
                 <h:outputText value="#{var.get('string')}" />
             </p:column>
-            <p:column>
+            <p:column headerText="Tiempo" sortBy="#{var.get('time')}" filterBy="#{var.get('time')}"
+                      filterMatchMode="contains">
                 <h:outputText value="#{var.get('time')}" converter="dateConverter" />
             </p:column>
         </p:dataTable>
@@ -23,7 +32,9 @@
 
         <h:form>
 
-            <p:commandButton value="Enviar notificacion" actionListener="#{messagesMB.setMessages('Hay fallos','En su red')}"
+            <p:commandButton value="Enviar notificacion"
+                             actionListener="#{messagesMB.setMessages(pregunta32.getSize(),
+                             pregunta32.getSize())}"
                              oncomplete="PF('messagesDlg').show();"
                              process="@this"/>
 
