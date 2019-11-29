@@ -1,0 +1,47 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+>
+    <ui:define name="content">
+        <p:growl id="messagesA" showDetail="true"/>
+
+
+        <h:form enctype="multipart/form-data">
+            <p:fileUpload value="#{pregunta44.file}" mode="simple" skinSimple="true" dragDropSupport="true"/>
+            <br/>
+            <p:commandButton value="Submit" ajax="false" action="#{pregunta44.upload}" disabled="false"/>
+        </h:form>
+
+
+        <h:form>
+            <p:dataTable var="router" value="#{pregunta44.routerElements}">
+                <p:column headerText="Interface">
+                    <h:outputText value="#{router.get('interface')}" />
+                </p:column>
+
+                <p:column headerText="IP address">
+                    <h:outputText value="#{pregunta44.evaluateShutdown(router.get('ip address'))}" />
+                </p:column>
+
+                <p:column headerText="Shutdown">
+                    <h:outputText value="#{router.get('shutdown')}" />
+                </p:column>
+            </p:dataTable>
+        </h:form>
+
+        <h:form>
+            <p:dataTable var="router" value="#{pregunta44.listIPAddress}">
+                <p:column headerText="IP ROUTE">
+                    <h:outputText value="#{router.get('ip route')}" />
+                </p:column>
+            </p:dataTable>
+        </h:form>
+
+        <h:form>
+            <p:commandButton value="Guardar" ajax="false" action="#{pregunta44.saveTemplate()}" disabled="false"/>
+        </h:form>
+    </ui:define>
+</ui:composition>

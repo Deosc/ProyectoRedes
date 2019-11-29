@@ -9,15 +9,67 @@
 <h:head>
     <title>Title</title>
 </h:head>
-<h:body> <p:growl id="messages" showDetail="true" sticky="true"/>
+<h:body>
+    <style type="text/css">
+        .ui-widget-header {
+            color: white !important;
+            background: #1976D2 !important;;
+        }
+
+        .ui-widget-content {
+            border: white !important;
+        }
+
+        .ui-widget-header {
+            text-shadow: 0 1px 0 rgba(0, 0, 0, 0.7);
+        }
+
+        /*.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {*/
+        /*    background: #1d88d2;*/
+        /*    color: white;*/
+        /*    border: black;*/
+        /*    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.7);*/
+
+        /*}*/
+        .ui-column-filter .ui-inputfield .ui-inputtext .ui-widget .ui-state-default .ui-corner-all{
+            color: white;
+
+        }
+
+    </style>
+    <p:growl id="messages" showDetail="true" sticky="true"/>
 
     <p:layout fullPage="true">
-        <p:layoutUnit position="north" size="100"  resizable="false" closable="false" collapsible="false">
-            <h:outputText value="Escom Ipn"/>
+        <p:layoutUnit position="north" size="200" resizable="false" closable="false" collapsible="false">
+
+            <p:panelGrid layout="grid" columns="3">
+                <p:column>
+                    <p:graphicImage width="150" height="150"
+                                    url="http://cdn2.dineroenimagen.com/media/dinero/styles/xlarge/public/images/2019/02/ipn-convocatoria.jpg"/>
+                </p:column>
+                <p:column style="text-align: center !important;">
+                    <h1 style="text-align: center"> Instituto Politecnico Nacional</h1>
+                    <h2 style="text-align: center"> Escom </h2>
+                    <h3 style="text-align: center"> Proyecto </h3>
+                </p:column>
+                <p:column style="text-align: right !important;">
+                    <div style="text-align: right !important;">
+                        <p:graphicImage style="text-align: right !important; right: auto !important;" width="150"
+                                        height="150" url="http://www.escom.ipn.mx/images/logoESCOM2x.png"/>
+                    </div>
+                </p:column>
+            </p:panelGrid>
         </p:layoutUnit>
 
-        <p:layoutUnit position="south"   size="100"  resizable="false" closable="false" collapsible="false">
-            <h:outputText value="Proyecto Redes"/>
+        <p:layoutUnit position="south" size="100" resizable="false" closable="false" collapsible="false">
+            <p:panelGrid columns="1" layout="grid">
+                <p:column>
+                    <h:outputText value="Caballero Huesca Carlos"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="Mora Guardado Daniel"/>
+                </p:column>
+            </p:panelGrid>
         </p:layoutUnit>
 
         <p:layoutUnit position="west" size="200" resizable="false" closable="false" collapsible="false">
@@ -30,5 +82,40 @@
             <ui:insert name="content">Put default content here, if any.</ui:insert>
         </p:layoutUnit>
     </p:layout>
+
+    <script type="text/javascript">
+        function start() {
+            PF('statusDialog').show();
+        }
+
+        function stop() {
+            PF('statusDialog').hide();
+        }
+    </script>
+
+    <p:dialog modal="true" widgetVar="statusDialog" draggable="false" closable="true" resizable="false">
+        <p:graphicImage url="https://storage.googleapis.com/public_files_dgsjl/load.gif"/>
+    </p:dialog>
+
+    <p:dialog modal="true" widgetVar="messagesDlg" draggable="false" closable="true" resizable="false">
+        <h:form>
+            <h:panelGrid columns="2">
+                <p:outputLabel for="correos" value="Correos: "/>
+                <p:inputText id="correos" value="#{messagesMB.correos}"/>
+            </h:panelGrid>
+
+            <h:panelGrid columns="2">
+                <p:outputLabel for="telefonos" value="telefonos: "/>
+                <p:inputText id="telefonos" value="#{messagesMB.numeros}"/>
+            </h:panelGrid>
+
+            <p:commandButton value="Enviar"
+                             actionListener="#{messagesMB.onClick()}"
+                             process="@form"
+                             oncomplete="PF('messagesDlg').hide();"/>
+        </h:form>
+    </p:dialog>
+
+
 </h:body>
 </html>

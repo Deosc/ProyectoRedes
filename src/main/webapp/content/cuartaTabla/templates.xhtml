@@ -1,0 +1,80 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+>
+    <ui:define name="content">
+        <p:growl id="messagesA" showDetail="true"/>
+
+
+            <h:form id="routerForm">
+                <!--Seleccione una dirección IP -->
+                <p:spacer height="25"/>
+                <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+                    <p:outputLabel for="router" value="Seleccione un router:"/>
+                    <p:selectOneMenu id="router" value="#{pregunta44.router}" autoWidth="true" required="true">
+                        <f:selectItem itemLabel="Selecciona un router" itemValue=""/>
+                        <f:selectItems value="#{pregunta44.listRouters}"/>
+                        <p:ajax update="@([id$=templateRouter]) @([id$=ipRouteForm])"
+                                listener="#{pregunta44.obtenerTemplate()}"/>
+                    </p:selectOneMenu>
+                </h:panelGrid>
+            </h:form>
+
+
+
+            <h:form>
+                <p:commandButton value="Actualizar"
+                                 actionListener="#{pregunta44.obtenerRouters()}"
+                                 process="@this"
+                                 partialSubmit="true"
+                                 update="@([id$=routerForm])"
+                                 onclick="start();"
+                                 oncomplete="stop();"
+                />
+            </h:form>
+
+
+
+
+
+
+
+
+        <h:form id="ipRouteForm">
+            <p:dataTable var="router" value="#{pregunta44.listIPAddress}">
+                <p:column headerText="IP ROUTE">
+                    <h:outputText value="#{router.get('ip route')}"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+
+        <h:form id="templateRouter">
+            <p:dataTable var="router" value="#{pregunta44.routerElements}">
+                <p:column headerText="Interface">
+                    <h:outputText value="#{router.get('interface')}"/>
+                </p:column>
+
+                <p:column headerText="IP address">
+                    <h:outputText value="#{pregunta44.evaluateShutdown(router.get('ip address'))}"/>
+                </p:column>
+
+                <p:column headerText="Shutdown">
+                    <h:outputText value="#{router.get('shutdown')}"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+
+
+
+        <h:form enctype="multipart/form-data">
+            <p:fileUpload value="#{pregunta44.file}" mode="simple" skinSimple="true" dragDropSupport="true"/>
+            <br/>
+            <p:commandButton value="Comparar" ajax="false" action="#{pregunta44.uploadComparate}" disabled="false"/>
+        </h:form>
+
+
+    </ui:define>
+</ui:composition>
