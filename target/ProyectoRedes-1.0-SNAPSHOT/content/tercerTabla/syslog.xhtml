@@ -6,6 +6,59 @@
                 xmlns:p="http://primefaces.org/ui"
 >
     <ui:define name="content">
-        Syslogs
+        <div class="ui-g-12 ui-md-12 ui-lg-12">
+            <h:form id="ipform">
+                <!--Seleccione una dirección IP -->
+                <p:spacer height="25"/>
+                <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+                    <p:outputLabel for="ip" value="Seleccione una IP:"/>
+                    <p:selectOneMenu id="ip" value="#{pregunta33.ip}" autoWidth="true" required="true">
+                        <f:selectItem itemLabel="Selecciona una IP" itemValue=""/>
+                        <f:selectItems value="#{pregunta33.listaIP}"/>
+                        <p:ajax update="@([id$=tablaSyslogs]),  @([id$=sizeLogs])" listener="#{pregunta33.obtenerSyslogs()}"/>
+                    </p:selectOneMenu>
+                </h:panelGrid>
+            </h:form>
+        </div>
+        <div class="ui-g-12 ui-md-12 ui-lg-12">
+            <h:form>
+                <p:commandButton value="Actualizar"
+                                 actionListener="#{pregunta33.obtenerSyslogs()}"
+                                 process="@this"
+                                 update="@([id$=formLogs])"
+                                 onclick="start();"
+                                 oncomplete="stop();"
+                />
+            </h:form>
+        </div>
+
+        <p:spacer width="50"/>
+
+        <div class="ui-g-12 ui-md-12 ui-lg-12">
+            <h:form id="formLogs">
+
+                <p:outputLabel id="sizeLogs" value="Logs: #{pregunta33.listSyslogs.size()}"/>
+
+
+                <p:dataTable id="tablaSyslogs" value="#{pregunta33.listSyslogs}" var="var">
+                    <p:column headerText="Syslog">
+                        <h:outputText value="#{var.get('syslog')}"/>
+                    </p:column>
+                    <p:column headerText="Nivel de Log">
+                        <h:outputText value="Nivel de syslog #{var.get('nivel')}"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </div>
+
+
+        <h:form>
+
+            <p:commandButton value="Enviar notificacion" actionListener="#{messagesMB.setMessages('Hay fallos','En su red')}"
+                             oncomplete="PF('messagesDlg').show();"
+                             process="@this"/>
+
+        </h:form>
+
     </ui:define>
 </ui:composition>

@@ -11,6 +11,8 @@ public class DataBaseC {
     public static final String COLLECTION_SYSLOGS = "syslogs";
     public static final String COLLECTION_PRUEBA = "prueba";
     public static final String COLLECTION_NETFLOW = "netflow";
+    public static final String COLLECTION_ROUTERS = "routers";
+    public static final String COLLECTION_TEMPLATES = "templates";
 
 }
 

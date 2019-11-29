@@ -7,8 +7,14 @@ import com.mongodb.DBCursor;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.io.Serializable;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -51,7 +57,6 @@ public class Pregunta33 implements Serializable {
 
     /**
      * Obtiene los syslogs correspondientes a la IP
-     * @param ip dirección IP
      */
     public void obtenerSyslogs(){
         listSyslogs.clear();
@@ -60,6 +65,48 @@ public class Pregunta33 implements Serializable {
         DBCursor cur = collection.getCollection().find(query);
         while(cur.hasNext()) {
             listSyslogs.add(cur.next().toMap());
+        }
+    }
+
+
+
+
+    /**
+     * Consume el API REST que filtra y crea el archivo con la información del router
+     */
+    public void downloadInfo(){
+        consumingRest("http://localhost:8000/telnet?host="+ip);
+        FacesMessage message = new FacesMessage("Aviso", "El archivo " + ip +".txt"+" se ha descargado. Revisa tu unidad local");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+
+    /**
+     * Consume un servicio REST
+     * @param rest
+     */
+    private void consumingRest(String rest){
+        try {
+            URL url = new URL(rest);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setRequestProperty("Accept", "application/json");
+            if (conn.getResponseCode() != 200) {
+                throw new RuntimeException("Failed : HTTP Error code : "
+                        + conn.getResponseCode());
+            }
+            InputStreamReader in = new InputStreamReader(conn.getInputStream());
+            BufferedReader br = new BufferedReader(in);
+            String output;
+            while ((output = br.readLine()) != null) {
+
+                System.out.println(output.contains("true"));
+
+            }
+            conn.disconnect();
+
+        } catch (Exception e) {
+            System.out.println("Exception in NetClientGet:- " + e);
         }
     }
 

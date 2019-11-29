@@ -1,42 +1,50 @@
 <ui:composition template="/WEB-INF/templates/layout.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
 >
     <ui:define name="content">
-        Ping pooler
+        <h:form>
+            <p:dataTable id="tablaIpSuccess" value="#{pregunta31.listSuccess}" var="var" emptyMessage="No hay IP encontradas">
+                <p:column headerText="IP alcanzadas" filterBy="#{var}" filterMatchMode="contains" sortBy="#{var}">
+                    <h:outputText value="#{var}"/>
+                </p:column>
+                <p:column headerText="Descargar " rendered="#{loginMB.isAdmin()}">
 
-        <p:dataTable id="tablaIpSuccess" value="#{pregunta31.listSuccess}" var="var">
-            <p:column>
-                <h:outputText value="#{var.get('name')}"/>
-            </p:column>
-            <p:column>
-                <h:outputText value="#{var.get('id')}"/>
-            </p:column>
-        </p:dataTable>
-        <p:dataTable id="tablaIpError" value="#{pregunta31.listError}" var="var">
-            <p:column>
-                <h:outputText value="#{var.get('name')}"/>
-            </p:column>
-            <p:column>
-                <h:outputText value="#{var.get('id')}"/>
-            </p:column>
-        </p:dataTable>
+                    <p:commandButton value="Descargar" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="pi pi-arrow-down" oncomplete="stop();">
+                        <p:fileDownload value="#{pregunta41.getFileIp(var.toString())}" />
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+
+            <p:dataTable id="tablaIpError" value="#{pregunta31.listError}" var="var" filterBy="#{var}" emptyMessage="No existen IP sin encontrar"
+                         filterMatchMode="contains" sortBy="#{var}">
+                <p:column headerText="IP con error">
+                    <h:outputText value="#{var}"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+
 
         <h:form>
-            <h:panelGrid columns="2">
-                <p:outputLabel for="correos" value="Correos: "/>
-                <p:chips id="correos" value="#{pregunta31.correos}"/>
-            </h:panelGrid>
 
-            <h:panelGrid columns="2">
-                <p:outputLabel for="telefonos" value="telefonos: "/>
-                <p:chips id="telefonos" value="#{pregunta31.numeros}"/>
-            </h:panelGrid>
+            <p:commandButton value="Enviar notificacion" actionListener="#{messagesMB.setMessages(pregunta31.generateMessage(),pregunta31.generateMessage())}"
+                             oncomplete="PF('messagesDlg').show();"
+                             process="@this"/>
 
-            <p:commandButton value="Enviar" actionListener="#{pregunta31.onClick()}" process="@form"/>
         </h:form>
+
+
+        <h:form>
+            <p:commandButton value="Actualizar"
+                             actionListener="#{pregunta31.refesh()}"
+                             process="@form"
+                             onclick="start();"
+                             oncomplete="stop();"
+                             update="@([id$=tablaIpSuccess])  @([id$=tablaIpError])"/>
+        </h:form>
+
+
     </ui:define>
 </ui:composition>

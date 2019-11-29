@@ -14,6 +14,8 @@ public class MenuMB implements Serializable {
     public static final String REDIRECT_3_3 = "/tercerTabla/syslog.xhtml";
     public static final String REDIRECT_3_4 = "/tercerTabla/check.xhtml";
     public static final String REDIRECT_4_3 = "/cuartaTabla/download.xhtml";
+    public static final String REDIRECT_4_4 = "/cuartaTabla/generateTemplates.xhtml";
+    public static final String REDIRECT_4_4_1 = "/cuartaTabla/templates.xhtml";
     public static final String REDIRECT_5_1 = "/quintaTabla/netflow.xhtml";
     public static final String REDIRECT_5_2 = "/quintaTabla/netflow2.xhtml";
 
@@ -46,6 +48,12 @@ public class MenuMB implements Serializable {
     }
     public String redirectDowload() {
         return redirectGeneric(REDIRECT_4_3);
+    }
+    public String redirectGenerateTemplate() {
+        return redirectGeneric(REDIRECT_4_4);
+    }
+    public String redirectTemplates() {
+        return redirectGeneric(REDIRECT_4_4_1);
     }
 
 }

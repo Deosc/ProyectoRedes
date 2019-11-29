@@ -6,6 +6,8 @@
                 xmlns:p="http://primefaces.org/ui"
 >
     <ui:define name="content">
+
+        <p:growl id="messagesB" showDetail="true"/>
         <div class="ui-g-12 ui-md-12 ui-lg-12">
             <h:form id="ipform">
                 <!--Seleccione una dirección IP -->
@@ -26,6 +28,15 @@
                                  actionListener="#{pregunta33.obtenerSyslogs()}"
                                  process="@this"
                                  update="@([id$=formLogs])"
+                                 onclick="start();"
+                                 oncomplete="stop();"
+                />
+            </h:form>
+            <h:form>
+                <p:commandButton value="Descargar Información"
+                                 actionListener="#{pregunta33.downloadInfo()}"
+                                 process="@this"
+                                 update="@([id$=messagesB])"
                                  onclick="start();"
                                  oncomplete="stop();"
                 />
