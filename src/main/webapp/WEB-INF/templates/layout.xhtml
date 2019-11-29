@@ -97,7 +97,7 @@
         <p:graphicImage url="https://storage.googleapis.com/public_files_dgsjl/load.gif"/>
     </p:dialog>
 
-    <p:dialog modal="true" widgetVar="messagesDlg" draggable="false" closable="true" resizable="false">
+    <p:dialog modal="true" widgetVar="messagesDlg" draggable="false" closable="true" resizable="false" header="Eviar notificacion">
         <h:form>
             <h:panelGrid columns="2">
                 <p:outputLabel for="correos" value="Correos: "/>
@@ -116,6 +116,17 @@
         </h:form>
     </p:dialog>
 
+
+
+    <p:dialog header="Subir configuracion" widgetVar="dlg1">
+        <h:form enctype="multipart/form-data">
+            <h:form enctype="multipart/form-data">
+                <p:fileUpload mode="simple" value="#{backupMB.uploadedFile}"  />
+                <p:commandButton value="Upload" action="#{backupMB.upload}" ajax="false" />
+            </h:form>
+
+        </h:form>
+    </p:dialog>
 
 </h:body>
 </html>

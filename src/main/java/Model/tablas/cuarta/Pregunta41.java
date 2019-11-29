@@ -8,10 +8,9 @@ import org.primefaces.model.StreamedContent;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.Serializable;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
@@ -95,8 +94,6 @@ public class Pregunta41 implements Serializable {
 
         }
     }
-
-
 
 
     public StreamedContent getFileIp(String ip) {
